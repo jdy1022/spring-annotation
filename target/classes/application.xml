@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<bean id="car" class="bean.Car">
+        <property name="brand" value="五菱宏光"/>
+        <property name="price" value="199999"/>
+        <property name="color" value="红色"/>
+    </bean>-->
+    <!--包扫描-->
+    <context:component-scan base-package="com">
+        <!--按照注解类型的类型进行扫描排除  主要有@Controller @Service @Repository
+        这三个注解的任何一个都不扫描进Spring容器-->
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+        <!--type是给定类型 MyService类，以及其子类就不会被扫描进Spring容器-->
+        <!--<context:exclude-filter type="assignable" expression="com.service.Myservice"/>-->
+        <!--type是给正则表达式，类名以Service结尾的不会被扫描进Spring容器-->
+       <!-- <context:exclude-filter type="regex" expression="com.service.*Service"/>-->
+        <context:exclude-filter type="custom" expression="rule.MyRule"/>
+    </context:component-scan>
+
+    <!--扫描指定的包 注意指定扫描时 要关闭默认扫描-->
+    <!--<context:component-scan base-package="com" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>-->
+
+
+
+    <!--
+    type：扫描规则，取值如下
+                annotation :按照注解的区分 @Controller @Service @Repository
+                assignable：按照给定的类型排除
+                aspectJ：
+                regex：按照正则表达式
+                custom：自定义排除
+    -->
+
+</beans>
